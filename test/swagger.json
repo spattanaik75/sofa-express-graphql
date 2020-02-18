@@ -1,0 +1,1886 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Invest New Business App"
+  },
+  "paths": {
+    "/rest/get-contract-by-id": {
+      "get": {
+        "operationId": "getContractByIdQuery",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "input",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/GetContractByIdInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "return contract item",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/put-contract": {
+      "post": {
+        "operationId": "putContractMutation",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input": {
+                    "$ref": "#/components/schemas/PutContractInput"
+                  }
+                },
+                "required": [
+                  "input"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest/delete-contract-by-id": {
+      "post": {
+        "operationId": "deleteContractByIdMutation",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input": {
+                    "$ref": "#/components/schemas/DeleteContractByIdInput"
+                  }
+                },
+                "required": [
+                  "input"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Query": {
+        "type": "object",
+        "required": [
+          "getContractById"
+        ],
+        "properties": {
+          "getContractById": {
+            "$ref": "#/components/schemas/Contract"
+          }
+        }
+      },
+      "GetContractByIdInput": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "Contract": {
+        "type": "object",
+        "required": [
+          "id",
+          "brokerId",
+          "prospectId",
+          "policyNumber",
+          "status",
+          "productId",
+          "servicingBrokerEntityNumber",
+          "reportingCurrency",
+          "commencementDate",
+          "chosenRetirementDate",
+          "investmentMaturityDate",
+          "selectedPortfolio",
+          "contractPayment",
+          "phaseInMonths"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "brokerId": {
+            "type": "string"
+          },
+          "prospectId": {
+            "type": "string"
+          },
+          "policyNumber": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "productId": {
+            "type": "string"
+          },
+          "servicingBrokerEntityNumber": {
+            "type": "string"
+          },
+          "reportingCurrency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "commencementDate": {
+            "type": "string"
+          },
+          "chosenRetirementDate": {
+            "type": "string"
+          },
+          "investmentMaturityDate": {
+            "type": "string"
+          },
+          "regulatoryCompliance": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RegulatoryCompliance"
+            }
+          },
+          "subscriptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Subscription"
+            }
+          },
+          "selectedPortfolio": {
+            "$ref": "#/components/schemas/Portfolio"
+          },
+          "contractContributions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "contractPayment": {
+            "$ref": "#/components/schemas/ContractPayment"
+          },
+          "phaseInMonths": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "appliedBenefits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BenefitConfig"
+            }
+          },
+          "projectedBenefits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProjectedBenefit"
+            }
+          },
+          "miscellaneousValues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MiscellaneousValues"
+            }
+          },
+          "applicableFees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContractFeeConfig"
+            }
+          }
+        }
+      },
+      "Currency": {
+        "type": "object",
+        "required": [
+          "name",
+          "iSOCode",
+          "symbol",
+          "zARExchangeRate",
+          "zARExchangeDate"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "iSOCode": {
+            "type": "object"
+          },
+          "symbol": {
+            "type": "object"
+          },
+          "zARExchangeRate": {
+            "type": "number",
+            "format": "float"
+          },
+          "zARExchangeDate": {
+            "type": "string"
+          }
+        }
+      },
+      "RegulatoryCompliance": {
+        "type": "object",
+        "required": [
+          "regulationName",
+          "isCompliant"
+        ],
+        "properties": {
+          "regulationName": {
+            "type": "object"
+          },
+          "isCompliant": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Subscription": {
+        "type": "object",
+        "required": [
+          "contractId",
+          "percentage",
+          "amount",
+          "role",
+          "relationship",
+          "entity"
+        ],
+        "properties": {
+          "contractId": {
+            "type": "string"
+          },
+          "percentage": {
+            "type": "number",
+            "format": "float"
+          },
+          "amount": {
+            "type": "number",
+            "format": "float"
+          },
+          "role": {
+            "type": "object"
+          },
+          "relationship": {
+            "type": "string"
+          },
+          "entity": {
+            "type": "string"
+          }
+        }
+      },
+      "Portfolio": {
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "allocations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "futureElections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FundPercentageAllocation"
+            }
+          }
+        }
+      },
+      "FundPercentageAllocation": {
+        "type": "object",
+        "required": [
+          "fundId",
+          "percentage"
+        ],
+        "properties": {
+          "fundId": {
+            "type": "string"
+          },
+          "percentage": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "ContractPayment": {
+        "type": "object",
+        "required": [
+          "amount",
+          "percentageAmount",
+          "paymentDay",
+          "frequency",
+          "escalationRate",
+          "reductionPercentage",
+          "withdrawalStrategy",
+          "paymentBankAccount"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "float"
+          },
+          "percentageAmount": {
+            "type": "number",
+            "format": "float"
+          },
+          "paymentDay": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "frequency": {
+            "type": "object"
+          },
+          "escalationRate": {
+            "type": "number",
+            "format": "float"
+          },
+          "reductionPercentage": {
+            "type": "number",
+            "format": "float"
+          },
+          "withdrawalStrategy": {
+            "type": "object"
+          },
+          "paymentBankAccount": {
+            "$ref": "#/components/schemas/BankAccount"
+          },
+          "withdrawalStrategyFundAllocations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FundPercentageAllocation"
+            }
+          }
+        }
+      },
+      "BankAccount": {
+        "type": "object",
+        "required": [
+          "accountHolder",
+          "accountNumber",
+          "accountType",
+          "bank",
+          "branch",
+          "domicile",
+          "iBAN",
+          "verified",
+          "verificationDate",
+          "verificationMethod"
+        ],
+        "properties": {
+          "accountHolder": {
+            "type": "string"
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "accountType": {
+            "type": "string"
+          },
+          "bank": {
+            "type": "string"
+          },
+          "branch": {
+            "type": "string"
+          },
+          "domicile": {
+            "type": "string"
+          },
+          "iBAN": {
+            "type": "string"
+          },
+          "verified": {
+            "type": "boolean"
+          },
+          "verificationDate": {
+            "type": "string"
+          },
+          "verificationMethod": {
+            "type": "object"
+          }
+        }
+      },
+      "BenefitConfig": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "version",
+          "category"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "qualifyingFunds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "category": {
+            "type": "object"
+          }
+        }
+      },
+      "ProjectedBenefit": {
+        "type": "object",
+        "required": [
+          "name",
+          "projectedValue",
+          "projectedPercentage",
+          "projectedEffectiveDate",
+          "currency"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "projectedValue": {
+            "type": "number",
+            "format": "float"
+          },
+          "projectedPercentage": {
+            "type": "number",
+            "format": "float"
+          },
+          "projectedEffectiveDate": {
+            "type": "string"
+          },
+          "currency": {
+            "$ref": "#/components/schemas/Currency"
+          }
+        }
+      },
+      "MiscellaneousValues": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "object"
+          }
+        }
+      },
+      "ContractFeeConfig": {
+        "type": "object",
+        "required": [
+          "feeType",
+          "commissionStructure",
+          "value"
+        ],
+        "properties": {
+          "feeType": {
+            "type": "object"
+          },
+          "commissionStructure": {
+            "type": "object"
+          },
+          "value": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "Mutation": {
+        "type": "object",
+        "properties": {
+          "putContract": {
+            "type": "string"
+          },
+          "deleteContractById": {
+            "type": "string"
+          }
+        }
+      },
+      "PutContractInput": {
+        "type": "object",
+        "required": [
+          "body"
+        ],
+        "properties": {
+          "body": {
+            "type": "object"
+          }
+        }
+      },
+      "ContractInput": {
+        "type": "object",
+        "required": [
+          "id",
+          "brokerId",
+          "prospectId",
+          "policyNumber",
+          "status",
+          "productId",
+          "servicingBrokerEntityNumber",
+          "reportingCurrency",
+          "commencementDate",
+          "chosenRetirementDate",
+          "investmentMaturityDate",
+          "selectedPortfolio",
+          "contractPayment",
+          "phaseInMonths"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "brokerId": {
+            "type": "string"
+          },
+          "prospectId": {
+            "type": "string"
+          },
+          "policyNumber": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "productId": {
+            "type": "string"
+          },
+          "servicingBrokerEntityNumber": {
+            "type": "string"
+          },
+          "reportingCurrency": {
+            "type": "object"
+          },
+          "commencementDate": {
+            "type": "string"
+          },
+          "chosenRetirementDate": {
+            "type": "string"
+          },
+          "investmentMaturityDate": {
+            "type": "string"
+          },
+          "regulatoryCompliance": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "subscriptions": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "selectedPortfolio": {
+            "type": "object"
+          },
+          "contractContributions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "contractPayment": {
+            "type": "object"
+          },
+          "phaseInMonths": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "appliedBenefits": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "projectedBenefits": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "miscellaneousValues": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "applicableFees": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "CurrencyInput": {
+        "type": "object",
+        "required": [
+          "name",
+          "iSOCode",
+          "symbol",
+          "zARExchangeRate",
+          "zARExchangeDate"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "iSOCode": {
+            "type": "object"
+          },
+          "symbol": {
+            "type": "object"
+          },
+          "zARExchangeRate": {
+            "type": "number",
+            "format": "float"
+          },
+          "zARExchangeDate": {
+            "type": "string"
+          }
+        }
+      },
+      "RegulatoryComplianceInput": {
+        "type": "object",
+        "required": [
+          "regulationName",
+          "isCompliant"
+        ],
+        "properties": {
+          "regulationName": {
+            "type": "object"
+          },
+          "isCompliant": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SubscriptionInput": {
+        "type": "object",
+        "required": [
+          "contractId",
+          "percentage",
+          "amount",
+          "role",
+          "relationship",
+          "entity"
+        ],
+        "properties": {
+          "contractId": {
+            "type": "string"
+          },
+          "percentage": {
+            "type": "number",
+            "format": "float"
+          },
+          "amount": {
+            "type": "number",
+            "format": "float"
+          },
+          "role": {
+            "type": "object"
+          },
+          "relationship": {
+            "type": "string"
+          },
+          "entity": {
+            "type": "string"
+          }
+        }
+      },
+      "PortfolioInput": {
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "allocations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "futureElections": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "FundPercentageAllocationInput": {
+        "type": "object",
+        "required": [
+          "fundId",
+          "percentage"
+        ],
+        "properties": {
+          "fundId": {
+            "type": "string"
+          },
+          "percentage": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "ContractPaymentInput": {
+        "type": "object",
+        "required": [
+          "amount",
+          "percentageAmount",
+          "paymentDay",
+          "frequency",
+          "escalationRate",
+          "reductionPercentage",
+          "withdrawalStrategy",
+          "paymentBankAccount"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "float"
+          },
+          "percentageAmount": {
+            "type": "number",
+            "format": "float"
+          },
+          "paymentDay": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "frequency": {
+            "type": "object"
+          },
+          "escalationRate": {
+            "type": "number",
+            "format": "float"
+          },
+          "reductionPercentage": {
+            "type": "number",
+            "format": "float"
+          },
+          "withdrawalStrategy": {
+            "type": "object"
+          },
+          "paymentBankAccount": {
+            "type": "object"
+          },
+          "withdrawalStrategyFundAllocations": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "BankAccountInput": {
+        "type": "object",
+        "required": [
+          "accountHolder",
+          "accountNumber",
+          "accountType",
+          "bank",
+          "branch",
+          "domicile",
+          "iBAN",
+          "verified",
+          "verificationDate",
+          "verificationMethod"
+        ],
+        "properties": {
+          "accountHolder": {
+            "type": "string"
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "accountType": {
+            "type": "string"
+          },
+          "bank": {
+            "type": "string"
+          },
+          "branch": {
+            "type": "string"
+          },
+          "domicile": {
+            "type": "string"
+          },
+          "iBAN": {
+            "type": "string"
+          },
+          "verified": {
+            "type": "boolean"
+          },
+          "verificationDate": {
+            "type": "string"
+          },
+          "verificationMethod": {
+            "type": "object"
+          }
+        }
+      },
+      "BenefitConfigInput": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "version",
+          "category"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "qualifyingFunds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "category": {
+            "type": "object"
+          }
+        }
+      },
+      "ProjectedBenefitInput": {
+        "type": "object",
+        "required": [
+          "name",
+          "projectedValue",
+          "projectedPercentage",
+          "projectedEffectiveDate",
+          "currency"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "projectedValue": {
+            "type": "number",
+            "format": "float"
+          },
+          "projectedPercentage": {
+            "type": "number",
+            "format": "float"
+          },
+          "projectedEffectiveDate": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "object"
+          }
+        }
+      },
+      "MiscellaneousValuesInput": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "object"
+          }
+        }
+      },
+      "ContractFeeConfigInput": {
+        "type": "object",
+        "required": [
+          "feeType",
+          "commissionStructure",
+          "value"
+        ],
+        "properties": {
+          "feeType": {
+            "type": "object"
+          },
+          "commissionStructure": {
+            "type": "object"
+          },
+          "value": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "DeleteContractByIdInput": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "RegulatoryConfig": {
+        "type": "object",
+        "required": [
+          "regulationName"
+        ],
+        "properties": {
+          "regulationName": {
+            "type": "object"
+          }
+        }
+      },
+      "Fund": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "EntityOption": {
+        "type": "object",
+        "required": [
+          "requirement",
+          "entityType"
+        ],
+        "properties": {
+          "requirement": {
+            "type": "object"
+          },
+          "entityType": {
+            "type": "object"
+          }
+        }
+      },
+      "FeeConfig": {
+        "type": "object",
+        "required": [
+          "feeType",
+          "commissionStructure"
+        ],
+        "properties": {
+          "feeType": {
+            "type": "object"
+          },
+          "commissionStructure": {
+            "type": "object"
+          }
+        }
+      },
+      "ProductFeeConfig": {
+        "type": "object",
+        "required": [
+          "feeType",
+          "commissionStructure",
+          "defaultValue",
+          "lowerBound",
+          "upperBound"
+        ],
+        "properties": {
+          "feeType": {
+            "type": "object"
+          },
+          "commissionStructure": {
+            "type": "object"
+          },
+          "defaultValue": {
+            "type": "number",
+            "format": "float"
+          },
+          "lowerBound": {
+            "type": "number",
+            "format": "float"
+          },
+          "upperBound": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "FundUnitAllocation": {
+        "type": "object",
+        "required": [
+          "fundId",
+          "units"
+        ],
+        "properties": {
+          "fundId": {
+            "type": "string"
+          },
+          "units": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "FundPortfolioConfig": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "riskCategory"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "regulatoryRequirements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RegulatoryConfig"
+            }
+          },
+          "riskCategory": {
+            "type": "object"
+          },
+          "portfolioFees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductFeeConfig"
+            }
+          }
+        }
+      },
+      "ModelPortfolioConfig": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "riskCategory"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "regulatoryRequirements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RegulatoryConfig"
+            }
+          },
+          "riskCategory": {
+            "type": "object"
+          },
+          "portfolioFees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductFeeConfig"
+            }
+          },
+          "portfolioFundAllocations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FundPercentageAllocation"
+            }
+          }
+        }
+      },
+      "TraditionalOpenPortfolioConfig": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "riskCategory"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "regulatoryRequirements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RegulatoryConfig"
+            }
+          },
+          "riskCategory": {
+            "type": "object"
+          },
+          "portfolioFees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductFeeConfig"
+            }
+          },
+          "applicableFunds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "SourceOfMoney": {
+        "type": "object",
+        "required": [
+          "source"
+        ],
+        "properties": {
+          "source": {
+            "type": "object"
+          }
+        }
+      },
+      "ContributionConfig": {
+        "type": "object",
+        "required": [
+          "id",
+          "contributionType",
+          "frequency",
+          "limits"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "contributionType": {
+            "type": "object"
+          },
+          "frequency": {
+            "type": "object"
+          },
+          "debitOrderDays": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "limits": {
+            "$ref": "#/components/schemas/Limits"
+          }
+        }
+      },
+      "Limits": {
+        "type": "object",
+        "required": [
+          "minimumFundAmount",
+          "minimumContributionAmount",
+          "maximumContributionAmount"
+        ],
+        "properties": {
+          "minimumFundAmount": {
+            "type": "number",
+            "format": "float"
+          },
+          "minimumContributionAmount": {
+            "type": "number",
+            "format": "float"
+          },
+          "maximumContributionAmount": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "PaymentConfig": {
+        "type": "object",
+        "required": [
+          "id",
+          "frequency",
+          "limits",
+          "escalationType"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "frequency": {
+            "type": "object"
+          },
+          "paymentDays": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "limits": {
+            "$ref": "#/components/schemas/Limits1"
+          },
+          "escalationType": {
+            "type": "object"
+          },
+          "withdrawalStrategyAllowed": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "Limits1": {
+        "type": "object",
+        "required": [
+          "minimumPercentage",
+          "maximumPercentage"
+        ],
+        "properties": {
+          "minimumPercentage": {
+            "type": "number",
+            "format": "float"
+          },
+          "maximumPercentage": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "longName",
+          "productTypeCode",
+          "logicalVersion",
+          "productCategory",
+          "availability"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "longName": {
+            "type": "string"
+          },
+          "productTypeCode": {
+            "type": "string"
+          },
+          "logicalVersion": {
+            "type": "string"
+          },
+          "regulatoryRequirements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RegulatoryConfig"
+            }
+          },
+          "productCategory": {
+            "type": "object"
+          },
+          "applicableBenefits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BenefitConfig"
+            }
+          },
+          "availability": {
+            "$ref": "#/components/schemas/Availability"
+          },
+          "applicablePortfolios": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "contributionConfigurations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContributionConfig"
+            }
+          },
+          "entityOptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EntityOption"
+            }
+          },
+          "applicableFees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductFeeConfig"
+            }
+          },
+          "sourceOfMoneyOptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SourceOfMoney"
+            }
+          },
+          "requiredAccreditions": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "paymentConfiguration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentConfig"
+            }
+          }
+        }
+      },
+      "Availability": {
+        "type": "object",
+        "required": [
+          "availabilityDate",
+          "salesExpiryDate",
+          "activationDate"
+        ],
+        "properties": {
+          "availabilityDate": {
+            "type": "string"
+          },
+          "salesExpiryDate": {
+            "type": "string"
+          },
+          "activationDate": {
+            "type": "string"
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "required": [
+          "addressType",
+          "city",
+          "countryCode",
+          "country",
+          "line1",
+          "line2",
+          "line3",
+          "postalCode"
+        ],
+        "properties": {
+          "addressType": {
+            "type": "object"
+          },
+          "city": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "line1": {
+            "type": "string"
+          },
+          "line2": {
+            "type": "string"
+          },
+          "line3": {
+            "type": "string"
+          },
+          "postalCode": {
+            "type": "string"
+          }
+        }
+      },
+      "Email": {
+        "type": "object",
+        "required": [
+          "emailType",
+          "emailAddress"
+        ],
+        "properties": {
+          "emailType": {
+            "type": "object"
+          },
+          "emailAddress": {
+            "type": "string"
+          }
+        }
+      },
+      "ContactNumber": {
+        "type": "object",
+        "required": [
+          "numberType",
+          "number"
+        ],
+        "properties": {
+          "numberType": {
+            "type": "object"
+          },
+          "number": {
+            "type": "string"
+          }
+        }
+      },
+      "Party": {
+        "type": "object",
+        "required": [
+          "entityNumber",
+          "entityType",
+          "surname",
+          "firstname",
+          "legalEntityName",
+          "dateOfBirth",
+          "gender",
+          "title",
+          "idNumber",
+          "registrationNumber",
+          "passportNumber",
+          "country"
+        ],
+        "properties": {
+          "entityNumber": {
+            "type": "string"
+          },
+          "entityType": {
+            "type": "object"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "legalEntityName": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "object"
+          },
+          "title": {
+            "type": "string"
+          },
+          "idNumber": {
+            "type": "string"
+          },
+          "registrationNumber": {
+            "type": "string"
+          },
+          "passportNumber": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "contactEmails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Email"
+            }
+          },
+          "contactAddresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Address"
+            }
+          },
+          "contactNumbers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContactNumber"
+            }
+          },
+          "bankAccounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankAccount"
+            }
+          }
+        }
+      },
+      "Prospect": {
+        "type": "object",
+        "required": [
+          "entityNumber",
+          "entityType",
+          "surname",
+          "firstname",
+          "legalEntityName",
+          "dateOfBirth",
+          "gender",
+          "title",
+          "idNumber",
+          "registrationNumber",
+          "passportNumber",
+          "country",
+          "id",
+          "brokerId"
+        ],
+        "properties": {
+          "entityNumber": {
+            "type": "string"
+          },
+          "entityType": {
+            "type": "object"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "legalEntityName": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "object"
+          },
+          "title": {
+            "type": "string"
+          },
+          "idNumber": {
+            "type": "string"
+          },
+          "registrationNumber": {
+            "type": "string"
+          },
+          "passportNumber": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "contactEmails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Email"
+            }
+          },
+          "contactAddresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Address"
+            }
+          },
+          "contactNumbers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContactNumber"
+            }
+          },
+          "bankAccounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankAccount"
+            }
+          },
+          "id": {
+            "type": "string"
+          },
+          "brokerId": {
+            "type": "string"
+          }
+        }
+      },
+      "Broker": {
+        "type": "object",
+        "required": [
+          "entityNumber",
+          "entityType",
+          "surname",
+          "firstname",
+          "legalEntityName",
+          "dateOfBirth",
+          "gender",
+          "title",
+          "idNumber",
+          "registrationNumber",
+          "passportNumber",
+          "country"
+        ],
+        "properties": {
+          "entityNumber": {
+            "type": "string"
+          },
+          "entityType": {
+            "type": "object"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "legalEntityName": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "object"
+          },
+          "title": {
+            "type": "string"
+          },
+          "idNumber": {
+            "type": "string"
+          },
+          "registrationNumber": {
+            "type": "string"
+          },
+          "passportNumber": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "contactEmails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Email"
+            }
+          },
+          "contactAddresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Address"
+            }
+          },
+          "contactNumbers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContactNumber"
+            }
+          },
+          "bankAccounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankAccount"
+            }
+          },
+          "accreditations": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "SpecialDeal": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "ContractContribution": {
+        "type": "object",
+        "required": [
+          "amount",
+          "sourceOfMoney",
+          "depositCurrency"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "float"
+          },
+          "sourceOfMoney": {
+            "$ref": "#/components/schemas/SourceOfMoney"
+          },
+          "depositCurrency": {
+            "$ref": "#/components/schemas/Currency"
+          }
+        }
+      },
+      "SingleContractContribution": {
+        "type": "object",
+        "required": [
+          "amount",
+          "sourceOfMoney",
+          "depositCurrency",
+          "originatingInvestmentPlan",
+          "billDate"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "float"
+          },
+          "sourceOfMoney": {
+            "$ref": "#/components/schemas/SourceOfMoney"
+          },
+          "depositCurrency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "originatingInvestmentPlan": {
+            "type": "string"
+          },
+          "billDate": {
+            "type": "string"
+          }
+        }
+      },
+      "RecurringContractContribution": {
+        "type": "object",
+        "required": [
+          "amount",
+          "sourceOfMoney",
+          "depositCurrency",
+          "billDay",
+          "frequency",
+          "contributionIncrease",
+          "contributionBankAccount"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "float"
+          },
+          "sourceOfMoney": {
+            "$ref": "#/components/schemas/SourceOfMoney"
+          },
+          "depositCurrency": {
+            "$ref": "#/components/schemas/Currency"
+          },
+          "billDay": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "frequency": {
+            "type": "object"
+          },
+          "contributionIncrease": {
+            "$ref": "#/components/schemas/ContributionIncrease"
+          },
+          "contributionBankAccount": {
+            "$ref": "#/components/schemas/BankAccount"
+          }
+        }
+      },
+      "ContributionIncrease": {
+        "type": "object",
+        "required": [
+          "contributionIncreaseDescription",
+          "contributionIncrease",
+          "cpiIncrease",
+          "frequency",
+          "nextIncreaseDate",
+          "premiumBeforeACI",
+          "integratorPercentage"
+        ],
+        "properties": {
+          "contributionIncreaseDescription": {
+            "type": "string"
+          },
+          "contributionIncrease": {
+            "type": "number",
+            "format": "float"
+          },
+          "cpiIncrease": {
+            "type": "number",
+            "format": "float"
+          },
+          "frequency": {
+            "type": "object"
+          },
+          "nextIncreaseDate": {
+            "type": "string"
+          },
+          "premiumBeforeACI": {
+            "type": "number",
+            "format": "float"
+          },
+          "integratorPercentage": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "ID": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "sofa-express-graphql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node ./index.js",
+    "temp": "babel-node ./temp.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "graphql": "^14.5.8",
+    "graphql-shield": "^6.1.0",
+    "graphql-yoga": "^1.18.3",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.6.3"
+  }
+}

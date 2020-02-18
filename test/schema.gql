@@ -1,0 +1,673 @@
+# API Name: "Invest New Business"
+# Host: http://localhost:8080/v001/InvestNewBusiness
+
+enum Accreditation {
+    A
+    B
+    C
+}
+
+enum AddressType {
+    BUSINESS
+    POSTAL
+    RESIDENTIAL
+}
+
+enum Category {
+    BOOSTER
+    FEEOPTIMISER
+    PROTECTOR
+}
+
+enum CommissionStructure {
+    ASANDWHEN
+    STANDARDALLOCATION
+    UPFRONT
+    ZERORATED
+}
+
+enum ContributionType {
+    RECURRING
+    SINGLE
+}
+
+enum EmailType {
+    ADMIN
+    BUSINESS
+    PERSONAL
+}
+
+enum EntityType {
+    BENEFICIARY
+    BROKER
+    CESSIONARY
+    INVESTOR
+    JOINTLIFE
+    LIFEASSURED
+    PAYEE
+    PAYER
+    POLICYCONTACT
+    RESPONSIBLEPERSON
+}
+
+enum EntityType1 {
+    COMPANY
+    NATURAL
+    NONTAXABLEORGANIZATION
+    TRUST
+}
+
+enum EscalationType {
+    CPI
+    PERCENTAGE
+}
+
+enum FeeType {
+    INITIALADMIN
+    INITIALADVISER
+    INITIALFUND
+    INITIALMODELPORTFOLIO
+    ONGOINGADMIN
+    ONGOINGADVISER
+    ONGOINGFUND
+    ONGOINGMODELPORTFOLIO
+}
+
+enum Frequency {
+    ANNUALLY
+    MONTHLY
+}
+
+enum Frequency2 {
+    ANNUALLY
+    BIANNUALLY
+    MONTHLY
+    QUARTERLY
+}
+
+enum Gender {
+    FEMALE
+    MALE
+}
+
+enum ISOCode {
+    EUR
+    GBP
+    JPY
+    USD
+    ZAR
+}
+
+enum Name {
+    ETC
+    GUARANTEEDGROWTHRATE
+    MAXDMIBOOSTPERCENTAGE
+}
+
+enum NumberType {
+    BUSINESS
+    HOME
+    MOBILE
+}
+
+enum ProductCategory {
+    POSTRETIREMENT
+    PRERETIREMENT
+    SAVINGS
+    WEALTH
+}
+
+enum RegulationName {
+    OTHER
+    REG28
+}
+
+enum RequiredAccredition {
+    A
+    B
+    C
+}
+
+enum Requirement {
+    MANDATORY
+    NONE
+    OPTIONAL
+}
+
+enum RiskCategory {
+    AGGRESIVE
+    CONSERVATIVE
+    MODERATE
+}
+
+enum Role {
+    ABSOLUTECESSION
+    AUTHORIZEDSIGNATORY
+    BENEFICIARY
+    COLLATERALCESSION
+    COMMISSIONALBEBROKER
+    EMPLOYERCONTACT
+    EXECUTOR
+    FAMILYMEMBER
+    GUARDIAN
+    JOINTLIFE
+    LIFEASSURED
+    OWNER
+    POWEROFATTORNEY
+    RESPONSIBLEPERSON
+    SERVICINGBROKER
+    TRUSTEE
+}
+
+enum Source {
+    CASH
+    CASHTRANSFERS
+    MATURINGPOLICY
+    UNITTRANSFERS
+}
+
+enum Symbol {
+    _
+    R
+}
+
+enum VerificationMethod {
+    AVS
+    POB
+}
+
+enum WithdrawalStrategy {
+    NOMINATED
+    PROPORTIONATE
+}
+
+enum WithdrawalStrategyAllowed {
+    NOMINATED
+    PROPORTIONATE
+}
+
+type Error {
+    code: String!
+    message: String!
+}
+
+type BankAccount {
+    accountHolder: String!
+    accountNumber: String!
+    accountType: String!
+    bank: String!
+    branch: String!
+    domicile: String!
+    iBAN: String!
+    verified: Boolean!
+    verificationDate: String!
+    verificationMethod: VerificationMethod!
+}
+
+type Currency {
+    name: String!
+    iSOCode: ISOCode!
+    symbol: Symbol!
+    zARExchangeRate: Float!
+    zARExchangeDate: String!
+}
+
+type RegulatoryConfig {
+    regulationName: RegulationName!
+}
+
+type BenefitConfig {
+    id: String!
+    name: String!
+    version: String!
+    qualifyingFunds: [String!]
+    category: Category!
+}
+
+type Fund {
+    id: String!
+}
+
+type EntityOption {
+    requirement: Requirement!
+    entityType: EntityType!
+}
+
+type FeeConfig {
+    feeType: FeeType!
+    commissionStructure: CommissionStructure!
+}
+
+type ProductFeeConfig {
+    feeType: FeeType!
+    commissionStructure: CommissionStructure!
+    defaultValue: Float!
+    lowerBound: Float!
+    upperBound: Float!
+}
+
+type FundPercentageAllocation {
+    fundId: String!
+    percentage: Float!
+}
+
+type FundUnitAllocation {
+    fundId: String!
+    units: Float!
+}
+
+type FundPortfolioConfig {
+    id: String!
+    name: String!
+    regulatoryRequirements: [RegulatoryConfig!]
+    riskCategory: RiskCategory!
+    portfolioFees: [ProductFeeConfig!]
+}
+
+type ModelPortfolioConfig {
+    id: String!
+    name: String!
+    regulatoryRequirements: [RegulatoryConfig!]
+    riskCategory: RiskCategory!
+    portfolioFees: [ProductFeeConfig!]
+    portfolioFundAllocations: [FundPercentageAllocation!]
+}
+
+type TraditionalOpenPortfolioConfig {
+    id: String!
+    name: String!
+    regulatoryRequirements: [RegulatoryConfig!]
+    riskCategory: RiskCategory!
+    portfolioFees: [ProductFeeConfig!]
+    applicableFunds: [String!]
+}
+
+type SourceOfMoney {
+    source: Source!
+}
+
+type ContributionConfig {
+    id: String!
+    contributionType: ContributionType!
+    frequency: Frequency!
+    debitOrderDays: [Int!]
+    limits: Limits!
+}
+
+type PaymentConfig {
+    id: String!
+    frequency: Frequency!
+    paymentDays: [Int!]
+    limits: Limits1!
+    escalationType: EscalationType!
+    withdrawalStrategyAllowed: [WithdrawalStrategyAllowed!]
+}
+
+type Product {
+    id: String!
+    name: String!
+    longName: String!
+    productTypeCode: String!
+    logicalVersion: String!
+    regulatoryRequirements: [RegulatoryConfig!]
+    productCategory: ProductCategory!
+    applicableBenefits: [BenefitConfig!]
+    availability: Availability!
+    applicablePortfolios: [String!]
+    contributionConfigurations: [ContributionConfig!]
+    entityOptions: [EntityOption!]
+    applicableFees: [ProductFeeConfig!]
+    sourceOfMoneyOptions: [SourceOfMoney!]
+    requiredAccreditions: [RequiredAccredition!]
+    paymentConfiguration: [PaymentConfig!]
+}
+
+type Address {
+    addressType: AddressType!
+    city: String!
+    countryCode: String!
+    country: String!
+    line1: String!
+    line2: String!
+    line3: String!
+    postalCode: String!
+}
+
+type Email {
+    emailType: EmailType!
+    emailAddress: String!
+}
+
+type ContactNumber {
+    numberType: NumberType!
+    number: String!
+}
+
+type Party {
+    entityNumber: String!
+    entityType: EntityType1!
+    surname: String!
+    firstname: String!
+    legalEntityName: String!
+    dateOfBirth: String!
+    gender: Gender!
+    title: String!
+    idNumber: String!
+    registrationNumber: String!
+    passportNumber: String!
+    country: String!
+    contactEmails: [Email!]
+    contactAddresses: [Address!]
+    contactNumbers: [ContactNumber!]
+    bankAccounts: [BankAccount!]
+}
+
+type Prospect {
+    entityNumber: String!
+    entityType: EntityType1!
+    surname: String!
+    firstname: String!
+    legalEntityName: String!
+    dateOfBirth: String!
+    gender: Gender!
+    title: String!
+    idNumber: String!
+    registrationNumber: String!
+    passportNumber: String!
+    country: String!
+    contactEmails: [Email!]
+    contactAddresses: [Address!]
+    contactNumbers: [ContactNumber!]
+    bankAccounts: [BankAccount!]
+    id: String!
+    brokerId: String!
+}
+
+type Broker {
+    entityNumber: String!
+    entityType: EntityType1!
+    surname: String!
+    firstname: String!
+    legalEntityName: String!
+    dateOfBirth: String!
+    gender: Gender!
+    title: String!
+    idNumber: String!
+    registrationNumber: String!
+    passportNumber: String!
+    country: String!
+    contactEmails: [Email!]
+    contactAddresses: [Address!]
+    contactNumbers: [ContactNumber!]
+    bankAccounts: [BankAccount!]
+    accreditations: [Accreditation!]
+}
+
+type ContractFeeConfig {
+    feeType: FeeType!
+    commissionStructure: CommissionStructure!
+    value: Float!
+}
+
+type MiscellaneousValues {
+    name: Name!
+}
+
+type SpecialDeal {
+    id: String!
+}
+
+type Subscription {
+    contractId: String!
+    percentage: Float!
+    amount: Float!
+    role: Role!
+    relationship: String!
+    entity: String!
+}
+
+type Portfolio {
+    id: String!
+    name: String!
+    allocations: [String!]
+    futureElections: [FundPercentageAllocation!]
+}
+
+type ContractContribution {
+    amount: Float!
+    sourceOfMoney: SourceOfMoney!
+    depositCurrency: Currency!
+}
+
+type SingleContractContribution {
+    amount: Float!
+    sourceOfMoney: SourceOfMoney!
+    depositCurrency: Currency!
+    originatingInvestmentPlan: String!
+    billDate: String!
+}
+
+type RecurringContractContribution {
+    amount: Float!
+    sourceOfMoney: SourceOfMoney!
+    depositCurrency: Currency!
+    billDay: Int!
+    frequency: Frequency2!
+    contributionIncrease: ContributionIncrease!
+    contributionBankAccount: BankAccount!
+}
+
+type Contract {
+    id: String!
+    brokerId: String!
+    prospectId: String!
+    policyNumber: String!
+    status: String!
+    productId: String!
+    servicingBrokerEntityNumber: String!
+    reportingCurrency: Currency!
+    commencementDate: String!
+    chosenRetirementDate: String!
+    investmentMaturityDate: String!
+    regulatoryCompliance: [RegulatoryCompliance!]
+    subscriptions: [Subscription!]
+    selectedPortfolio: Portfolio!
+    contractContributions: [String!]
+    contractPayment: ContractPayment!
+    phaseInMonths: Int!
+    appliedBenefits: [BenefitConfig!]
+    projectedBenefits: [ProjectedBenefit!]
+    miscellaneousValues: [MiscellaneousValues!]
+    applicableFees: [ContractFeeConfig!]
+}
+
+type Availability {
+    availabilityDate: String!
+    salesExpiryDate: String!
+    activationDate: String!
+}
+
+type ContractPayment {
+    amount: Float!
+    percentageAmount: Float!
+    paymentDay: Int!
+    frequency: Frequency2!
+    escalationRate: Float!
+    reductionPercentage: Float!
+    withdrawalStrategy: WithdrawalStrategy!
+    paymentBankAccount: BankAccount!
+    withdrawalStrategyFundAllocations: [FundPercentageAllocation!]
+}
+
+type ContributionIncrease {
+    contributionIncreaseDescription: String!
+    contributionIncrease: Float!
+    cpiIncrease: Float!
+    frequency: Frequency2!
+    nextIncreaseDate: String!
+    premiumBeforeACI: Float!
+    integratorPercentage: Float!
+}
+
+type Limits {
+    minimumFundAmount: Float!
+    minimumContributionAmount: Float!
+    maximumContributionAmount: Float!
+}
+
+type Limits1 {
+    minimumPercentage: Float!
+    maximumPercentage: Float!
+}
+
+type ProjectedBenefit {
+    name: String!
+    projectedValue: Float!
+    projectedPercentage: Float!
+    projectedEffectiveDate: String!
+    currency: Currency!
+}
+
+type RegulatoryCompliance {
+    regulationName: RegulationName!
+    isCompliant: Boolean!
+}
+
+input CurrencyInput {
+    name: String!
+    iSOCode: ISOCode!
+    symbol: Symbol!
+    zARExchangeRate: Float!
+    zARExchangeDate: String!
+}
+
+input RegulatoryComplianceInput {
+    regulationName: RegulationName!
+    isCompliant: Boolean!
+}
+
+input SubscriptionInput {
+    contractId: String!
+    percentage: Float!
+    amount: Float!
+    role: Role!
+    relationship: String!
+    entity: String!
+}
+
+input FundPercentageAllocationInput {
+    fundId: String!
+    percentage: Float!
+}
+
+input PortfolioInput {
+    id: String!
+    name: String!
+    allocations: [String!]
+    futureElections: [FundPercentageAllocationInput!]
+}
+
+input BankAccountInput {
+    accountHolder: String!
+    accountNumber: String!
+    accountType: String!
+    bank: String!
+    branch: String!
+    domicile: String!
+    iBAN: String!
+    verified: Boolean!
+    verificationDate: String!
+    verificationMethod: VerificationMethod!
+}
+
+input ContractPaymentInput {
+    amount: Float!
+    percentageAmount: Float!
+    paymentDay: Int!
+    frequency: Frequency2!
+    escalationRate: Float!
+    reductionPercentage: Float!
+    withdrawalStrategy: WithdrawalStrategy!
+    paymentBankAccount: BankAccountInput!
+    withdrawalStrategyFundAllocations: [FundPercentageAllocationInput!]
+}
+
+input BenefitConfigInput {
+    id: String!
+    name: String!
+    version: String!
+    qualifyingFunds: [String!]
+    category: Category!
+}
+
+input ProjectedBenefitInput {
+    name: String!
+    projectedValue: Float!
+    projectedPercentage: Float!
+    projectedEffectiveDate: String!
+    currency: CurrencyInput!
+}
+
+input MiscellaneousValuesInput {
+    name: Name!
+}
+
+input ContractFeeConfigInput {
+    feeType: FeeType!
+    commissionStructure: CommissionStructure!
+    value: Float!
+}
+
+input ContractInput {
+    id: String!
+    brokerId: String!
+    prospectId: String!
+    policyNumber: String!
+    status: String!
+    productId: String!
+    servicingBrokerEntityNumber: String!
+    reportingCurrency: CurrencyInput!
+    commencementDate: String!
+    chosenRetirementDate: String!
+    investmentMaturityDate: String!
+    regulatoryCompliance: [RegulatoryComplianceInput!]
+    subscriptions: [SubscriptionInput!]
+    selectedPortfolio: PortfolioInput!
+    contractContributions: [String!]
+    contractPayment: ContractPaymentInput!
+    phaseInMonths: Int!
+    appliedBenefits: [BenefitConfigInput!]
+    projectedBenefits: [ProjectedBenefitInput!]
+    miscellaneousValues: [MiscellaneousValuesInput!]
+    applicableFees: [ContractFeeConfigInput!]
+}
+
+
+input PutContractInput {
+    body: ContractInput!
+}
+
+input GetContractByIdInput {
+    id: Int!
+}
+
+input DeleteContractByIdInput {
+    id: Int!
+}
+
+type Query {
+    "return contract item"
+    getContractById(input: GetContractByIdInput!): Contract!
+}
+
+type Mutation {
+    putContract(input: PutContractInput!): String
+    deleteContractById(input: DeleteContractByIdInput!): String
+}
+
+schema {
+    mutation: Mutation
+    query: Query
+}
+
+

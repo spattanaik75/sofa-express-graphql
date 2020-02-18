@@ -1,0 +1,56 @@
+type Contract {
+    name: String!
+    policyNo: String!
+    policyValue: Float!
+    password: String!
+    brokers: [Broker!]
+}
+
+type Broker {
+    name : String!
+    brokerCanEdit : Boolean!
+    brokerCanWithdraw : Boolean!
+}
+
+input ContractInput {
+    name: String!
+    policyNo: String!
+    policyValue: Float!
+    password: String!
+    brokers: [BrokerInput!]
+}
+
+input BrokerInput {
+    name : String!
+    brokerCanEdit : Boolean!
+    brokerCanWithdraw : Boolean!
+}
+
+type newWithdrawalOutput {
+    policyNo: String!
+    amount: Float!
+}
+
+type Query {
+    "return contract item"
+    getContract(policyNo: String!): Contract!
+
+}
+
+type Mutation {
+    editContract(policyNo: String!, amount: Float!): String
+    withdrawContract(policyNo: String!, amount: Float!): String
+    deleteContract(policyNo: String!): String
+}
+
+type Subscription {
+    newWithdrawal: newWithdrawalOutput
+}
+
+schema {
+    mutation: Mutation
+    query: Query
+    subscription: Subscription
+}
+
+
